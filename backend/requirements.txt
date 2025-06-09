@@ -1,0 +1,9 @@
+Django==5.2.2
+djangorestframework==3.16.0
+drf_spectacular==0.28.0
+rest_framework_simplejwt==0.0.2
+djangorestframework-simplejwt==5.5.0
+django-pgtrigger==2.5.1
+psycopg2-binary==2.9.10
+pillow==11.2.1
+mysql-connector-python==9.3.0
