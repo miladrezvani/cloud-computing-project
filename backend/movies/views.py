@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework import generics
 from .models import Movies, Scores, Cast, Character, Genres
 from rest_framework.response import Response
@@ -51,11 +53,29 @@ class Hero(generics.ListAPIView):
     serializer_class = MoviesSerializer
 
 class Recent(generics.ListAPIView):
+    @method_decorator(cache_page(60 * 15, key_prefix='Recent'))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        import time
+        time.sleep(0.5)
+        return super().get_queryset()
+
     queryset = Movies.objects.all().order_by('-year')[:8]
     serializer_class = MoviesSerializer
     pagination_class = StandardMovieBars
 
 class Alphabetic(generics.ListAPIView):
+    @method_decorator(cache_page(60 * 15, key_prefix='Alphabetic'))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        import time
+        time.sleep(0.5)
+        return super().get_queryset()
+
     queryset = Movies.objects.all().order_by('title')[:8]
     serializer_class = MoviesSerializer
     pagination_class = StandardMovieBars
@@ -66,11 +86,29 @@ class Highscore(generics.ListAPIView):
     pagination_class = StandardResultsSetPagination
 
 class NewMovies(generics.ListAPIView):
+    @method_decorator(cache_page(60 * 15, key_prefix='NewMovies'))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        import time
+        time.sleep(0.5)
+        return super().get_queryset()
+
     queryset = Movies.objects.all().order_by('-year')
     serializer_class = MoviesSerializer
     pagination_class = StandardResultsSetPagination
 
 class AlphabeticMovies(generics.ListAPIView):
+    @method_decorator(cache_page(60 * 15, key_prefix='AlphabeticMovies'))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        import time
+        time.sleep(0.5)
+        return super().get_queryset()
+
     queryset = Movies.objects.all().order_by('title')
     serializer_class = MoviesSerializer
     pagination_class = StandardResultsSetPagination
@@ -82,6 +120,14 @@ class MoviesDetail(generics.RetrieveAPIView):
         return Movies.objects.filter(id=obj.id)
 
 class MoviesCast(generics.ListAPIView):
+    @method_decorator(cache_page(60 * 15, key_prefix='MoviesCast'))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        import time
+        time.sleep(0.5)
+        return super().get_queryset()
     serializer_class = CastSerializer
     pagination_class = StandardCastBars
     def get_queryset(self):
@@ -94,6 +140,15 @@ class MoviesCast(generics.ListAPIView):
         return context
 
 class getCast(generics.RetrieveAPIView):
+    @method_decorator(cache_page(60 * 15, key_prefix='getCast'))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        import time
+        time.sleep(0.5)
+        return super().get_queryset()
+
     serializer_class = CastSerializer
     def get_queryset(self):
         obj = get_object_or_404(Cast, id=self.kwargs['pk'])
@@ -122,6 +177,14 @@ class WatchedMovies(generics.ListAPIView):
         return context
 
 class CastMoviesPlayed(generics.ListAPIView):
+    @method_decorator(cache_page(60 * 15, key_prefix='CastMoviesPlayed'))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        import time
+        time.sleep(0.5)
+        return super().get_queryset()
     serializer_class = MoviesSerializer
     pagination_class = StandardCastMovieBars
 

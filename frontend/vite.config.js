@@ -13,23 +13,20 @@ export default defineConfig({
         target: "http://backend:8000",
         changeOrigin: true,
         rewrite: (path) => {
-          // Handle movie posters and cast paths
           return path
-            .replace(/^\/movies\/(?:posters|cast)/, "") // Remove /movies prefix for direct resources
+            .replace(/^\/movies\/\d+\/cast\/posters/, "/posters")
             .replace(/^\/movies\/\d+\/(cast|posters)(\/?)/, "/$1$2")
-            .replace(/^\/movies\/?/, "")
-            .replace(/^\/movies\/\d+\/cast\/posters/, "/posters"); // Handle nested cast/posters
+            .replace(/^\/movies\/?/, "");
         },
       },
 
-      // Consolidated user-related paths
       "/user": {
         target: "http://backend:8000",
         changeOrigin: true,
         rewrite: (path) =>
           path
             .replace(/^\/user\/\d+\/posters/, "/posters")
-            .replace(/^\/user\/?/, ""), // Remove /user prefix
+            .replace(/^\/user\/?/, ""),
       },
     },
     host: "0.0.0.0",
