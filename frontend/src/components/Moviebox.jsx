@@ -17,7 +17,7 @@ const Moviebox = ({ title, poster, score, year }) => {
             <p className="mt-2 text-slate-600">{year}</p>
           </div>
           <h5 className="text-2xl font-medium text-slate-800">
-            {score}
+            {Number(score).toFixed(2)}
             <StarIcon />
           </h5>
         </figcaption>

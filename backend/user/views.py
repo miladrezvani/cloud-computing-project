@@ -134,7 +134,7 @@ class UsernameSearch(generics.ListAPIView):
 
     def post(self, request, *args, **kwargs):
         search = request.data.get('search')
-        tmp = User.objects.filter(username__contains=search)
+        tmp = User.objects.filter(username__icontains=search)
         page = self.paginate_queryset(tmp)
         if page is not None:
             serializer = self.get_serializer(page, many=True)

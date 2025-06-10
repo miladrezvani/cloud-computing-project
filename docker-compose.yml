@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    # environment:
+    # - DATABASE_URL=mysql://user:password@mysql:3306/db_name
+    # - REDIS_URL=redis://redis:6379/0
+    # - DEBUG=0
+    depends_on:
+      - mysql
+      # - redis
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    # environment:
+    # - VITE_API_URL=http://backend:8000/api  # Update with your API URL
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  # redis:
+  #   image: redis:alpine
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - app-network
+  #   restart: unless-stopped
+
+  mysql:
+    image: mysql:latest
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=IMDB
+      - MYSQL_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=admin
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  # redis_data:
+
+networks:
+  app-network:
+    driver: bridge

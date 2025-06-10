@@ -4,7 +4,8 @@ from .models import Movies, Scores, Cast, Character, Genres
 class MoviesSerializer(serializers.ModelSerializer):
     genres = serializers.StringRelatedField(many=True)
     user_score = serializers.SerializerMethodField()
-
+    poster = serializers.CharField(source='poster.name')
+ 
     class Meta:
         model = Movies
         fields = [ "id", "title", "synopsis", "poster", "score", "genres", "year","cast", "user_score"]
@@ -29,6 +30,7 @@ class CharacterSerializer(serializers.ModelSerializer):
 
 class CastSerializer(serializers.ModelSerializer):
     character = serializers.SerializerMethodField()
+    profileIMG = serializers.CharField(source='profileIMG.name')
 
 
     class Meta:
