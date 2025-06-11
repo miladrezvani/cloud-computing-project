@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - image: frontend
+          name: frontend
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "0.5"
+              ephemeral-storage: 1G
+              memory: 1G
+            requests:
+              cpu: "0.5"
+              ephemeral-storage: 1G
+              memory: 1G
+      restartPolicy: Always
