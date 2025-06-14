@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: frontend
@@ -13,7 +13,7 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: frontend
+        - image: miladrezvani/imdb-frontend:1.0.0
           name: frontend
           ports:
             - containerPort: 3000

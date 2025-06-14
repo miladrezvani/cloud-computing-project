@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: backend
@@ -13,7 +13,7 @@ spec:
         app: backend
     spec:
       containers:
-        - image: backend
+        - image: miladrezvani/imdb-backend:1.0.0
           name: backend
           ports:
             - containerPort: 8000
