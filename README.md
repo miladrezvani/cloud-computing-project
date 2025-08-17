@@ -17,7 +17,7 @@ The project is organized into several folders, each containing the necessary fil
 
 - **/backend**: Contains the Django backend server files, including user login, signup, and scoring functionalities.
 - **/frontend**: Contains the React frontend application.
-- **/deployment**: Contains deployment configurations for various services.
+- **/kubernetes**: Contains deployment configurations for various services.
 
 ## Services Used
 
